@@ -1,29 +1,39 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Partido {
-    private Date fecha;
+	private int idPartido;
+    private LocalDate fecha;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
     private String estadio;
     private List<EstadisticaJugador> estadistica;
 
-    public Partido(Date fecha, Equipo equipoLocal, Equipo equipoVisitante, String estadio, List<EstadisticaJugador> estadistica) {
+    public Partido(int idPartido, LocalDate fecha, Equipo equipoLocal, Equipo equipoVisitante, String estadio) {
+    	this.idPartido = idPartido;
         this.fecha = fecha;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.estadio = estadio;
-        this.estadistica = new ArrayList<>();
+        this.estadistica = new ArrayList<EstadisticaJugador>();
     }
+    
+    public int getIdPartido() {
+		return idPartido;
+	}
 
-    public Date getFecha() {
+	private void setIdPartido(int idPartido) {
+		this.idPartido = idPartido;
+	}
+
+	public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
