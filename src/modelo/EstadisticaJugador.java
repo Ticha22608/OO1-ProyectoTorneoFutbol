@@ -1,19 +1,29 @@
 package modelo;
 
 public class EstadisticaJugador {
+	private int idEstadistica;
     private int goles;
     private int asistencias;
     private int minutosJugados;
     private Jugador jugador;
 
-    public EstadisticaJugador(int goles, int asistencias, int minutosJugados, Jugador jugador) {
+    public EstadisticaJugador(int idEstadistica, int goles, int asistencias, int minutosJugados, Jugador jugador) {
+    	this.idEstadistica = idEstadistica;
         this.goles = goles;
         this.asistencias = asistencias;
         this.minutosJugados = minutosJugados;
         this.jugador = jugador;
     }
+    
+    public int getIdEstadistica() {
+		return idEstadistica;
+	}
 
-    public int getGoles() {
+	private void setIdEstadistica(int idEstadistica) {
+		this.idEstadistica = idEstadistica;
+	}
+
+	public int getGoles() {
         return goles;
     }
 

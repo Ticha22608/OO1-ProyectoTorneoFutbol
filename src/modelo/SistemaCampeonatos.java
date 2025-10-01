@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SistemaCampeonatos {
@@ -9,11 +10,11 @@ public class SistemaCampeonatos {
     private List<Jugador> jugadores;
     private List<Entrenador> entrenadores;
 
-    public SistemaCampeonatos(List<Torneo> torneos, List<Equipo> equipos, List<Jugador> jugadores, List<Entrenador> entrenadores) {
-        this.torneos = new ArrayList<>();
-        this.equipos = new ArrayList<>();
-        this.jugadores = new ArrayList<>();
-        this.entrenadores = new ArrayList<>();
+    public SistemaCampeonatos() {
+        this.torneos = new ArrayList<Torneo>();
+        this.equipos = new ArrayList<Equipo>();
+        this.jugadores = new ArrayList<Jugador>();
+        this.entrenadores = new ArrayList<Entrenador>();
     }
 
     public List<Torneo> getTorneos() {
@@ -47,4 +48,5 @@ public class SistemaCampeonatos {
     public void setEntrenadores(List<Entrenador> entrenadores) {
         this.entrenadores = entrenadores;
     }
+    
 }
