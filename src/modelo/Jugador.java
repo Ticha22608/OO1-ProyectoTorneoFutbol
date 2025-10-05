@@ -8,7 +8,7 @@ public class Jugador extends Persona {
     private String posicion;
     private int numCamiseta;
 
-    public Jugador(int idPersona, String nombre, String apellido, int dni, LocalDate fechaNacimiento
+    public Jugador(int idPersona, String nombre, String apellido, long dni, LocalDate fechaNacimiento
     		, double estatura, double peso, String posicion, int numCamiseta) {
     	super(idPersona, nombre, apellido, dni, fechaNacimiento);
     	this.estatura = estatura;
