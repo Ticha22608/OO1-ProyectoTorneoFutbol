@@ -3,18 +3,18 @@ package modelo;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Persona {
-	private int idPersona;
-    private String nombre;
-    private String apellido;
-    private int dni;
-    private LocalDate fechaNacimiento;
+public abstract class Persona {
+	protected int idPersona;
+	protected String nombre;
+	protected String apellido;
+	protected long dni;
+	protected LocalDate fechaNacimiento;
 
-    public Persona(int idPersona, String nombre, String apellido, int dni, LocalDate fechaNacimiento) {
+    public Persona(int idPersona, String nombre, String apellido, long dni, LocalDate fechaNacimiento) {
     	this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.dni = dni;
+        this.dni=dni;
         this.fechaNacimiento = fechaNacimiento;
     }
     
@@ -42,7 +42,7 @@ public class Persona {
         this.apellido = apellido;
     }
 
-    public int getDni() {
+    public long getDni() {
         return dni;
     }
 
@@ -57,6 +57,14 @@ public class Persona {
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+    
+
+	@Override
+	public String toString() {
+		return "idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+				+ ", fechaNacimiento=" + fechaNacimiento;
+	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -69,6 +77,7 @@ public class Persona {
 		Persona other = (Persona) obj;
 		return Objects.equals(fechaNacimiento, other.fechaNacimiento);
 	}
+	
     
     
 }

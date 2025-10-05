@@ -68,4 +68,6 @@ public class Partido {
     public void setEstadistica(List<EstadisticaJugador> estadistica) {
         this.estadistica = estadistica;
     }
+    
+    
 }
