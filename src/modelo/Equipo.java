@@ -78,24 +78,7 @@ public class Equipo {
 	public void setEstadisticaEquipo(List<EstadisticaJugador> estadisticaEquipo) {
 		this.estadisticaEquipo = estadisticaEquipo;
 	}
-    public double calcularAlturaPromedio() {
-        // 1. Verifica si hay jugadores para evitar división por cero
-        if (this.jugadores.isEmpty()) {
-            return 0.0;
-        }
 
-        double sumaAlturas = 0.0;
-        int i = 0;
-
-        // 2. Suma las estaturas de todos los jugadores usando un ciclo while
-        while (i < this.jugadores.size()) {
-            sumaAlturas += this.jugadores.get(i).getEstatura();
-            i++;
-        }
-
-        // 3. Calcula el promedio: suma total dividida por la cantidad de jugadores
-        return sumaAlturas / this.jugadores.size();
-    }
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -107,7 +90,7 @@ public class Equipo {
 		Equipo other = (Equipo) obj;
 		return Objects.equals(idEquipo, other.idEquipo);
 	}
-
-
-
+	
+	
+    
 }
