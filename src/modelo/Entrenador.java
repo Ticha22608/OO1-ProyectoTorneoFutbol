@@ -10,7 +10,7 @@ public class Entrenador extends Persona{
     	super(idPersona, nombre, apellido, dni, fechaNacimiento);
         this.estrategiaFavorita = estrategiaFavorita;
     }
-    
+
 	public String getEstrategiaFavorita() {
         return estrategiaFavorita;
     }
@@ -18,7 +18,8 @@ public class Entrenador extends Persona{
     public void setEstrategiaFavorita(String estrategiaFavorita) {
         this.estrategiaFavorita = estrategiaFavorita;
     }
-    
+
+
 
 	@Override
 	public String toString() {
@@ -36,5 +37,5 @@ public class Entrenador extends Persona{
 		Entrenador other = (Entrenador) obj;
 		return Objects.equals(estrategiaFavorita, other.estrategiaFavorita);
 	}
-    
+
 }
