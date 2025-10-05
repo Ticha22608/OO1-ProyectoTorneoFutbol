@@ -16,8 +16,18 @@ public class Jugador extends Persona {
         this.posicion = posicion;
         this.numCamiseta = numCamiseta;
     }
-   
-	public double getEstatura() {
+
+    @Override
+    public String toString() {
+        return "Jugador{" + super.toString() +
+                ", estatura=" + estatura +
+                ", peso=" + peso +
+                ", posicion='" + posicion + '\'' +
+                ", numCamiseta=" + numCamiseta +
+                "}\n";
+    }
+
+    public double getEstatura() {
         return estatura;
     }
 

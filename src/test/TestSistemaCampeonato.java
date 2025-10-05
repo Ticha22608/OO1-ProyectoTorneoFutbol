@@ -37,7 +37,7 @@ public class TestSistemaCampeonato {
         sistema.agregarJugador("Damian", "Tello", 41234984, LocalDate.of(1995, 9, 23), 1.90, 80.0, "Arquero", 1); //tal
         sistema.agregarJugador("Camilo", "Viganoni", 44987533, LocalDate.of(2003, 12, 10), 1.81, 85.0, "Delantero", 7); //tal
 
-        //System.out.println(sistema.getJugadores().toString());
+        System.out.println(sistema.getJugadores().toString());
 
         System.out.println("\nEntrenadores por estrategia fav:\n");
 
@@ -50,12 +50,12 @@ public class TestSistemaCampeonato {
         sistema.traerEquipo("TAL").agregarJugador(sistema.traerJugador(5));
         sistema.traerEquipo("TAL").agregarJugador(sistema.traerJugador(6));
 
-        /*System.out.println("Jugadores CAI:");
+        System.out.println("Jugadores CAI:");
         System.out.println(sistema.traerEquipo("CAI").getJugadores().toString());
         System.out.println("Jugadores CAT:");
         System.out.println(sistema.traerEquipo("CAT").getJugadores().toString());
         System.out.println("Jugadores TAL:");
-        System.out.println(sistema.traerEquipo("TAL").getJugadores().toString());*/
+        System.out.println(sistema.traerEquipo("TAL").getJugadores().toString());
 
         sistema.traerEquipo("CAI").agregarEstadisticaEquipo(9, 5, 1309, sistema.traerJugador(1));
         sistema.traerEquipo("CAI").agregarEstadisticaEquipo(2, 1, 3168, sistema.traerJugador(2));

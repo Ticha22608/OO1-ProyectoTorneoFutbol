@@ -205,7 +205,6 @@ public class SistemaCampeonatos {
     	return lstEntrenadores;
     }
     
-    
    public List<Jugador> traerJugadores(LocalDate fecha1, LocalDate fecha2){
     	List<Jugador> jugadoresEntreFechas = new ArrayList<Jugador>();
     	
@@ -235,4 +234,5 @@ public class SistemaCampeonatos {
     	}
     	return equiposFecha;
     }
+
 }
