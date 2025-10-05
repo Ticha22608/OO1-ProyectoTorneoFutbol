@@ -88,6 +88,6 @@ public class Torneo {
 	public void setPartidos(List<Partido> partidos) {
 		this.partidos = partidos;
 	}
-	
+
     
 }

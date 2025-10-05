@@ -1,24 +1,16 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
-public class Entrenador {
-	private int idEntrenador;
+public class Entrenador extends Persona{
     private String estrategiaFavorita;
 
-    public Entrenador(int idEntrenador, String estrategiaFavorita) {
-    	this.idEntrenador = idEntrenador;
+    public Entrenador(int idPersona, String nombre, String apellido, long dni, LocalDate fechaNacimiento, String estrategiaFavorita) {
+    	super(idPersona, nombre, apellido, dni, fechaNacimiento);
         this.estrategiaFavorita = estrategiaFavorita;
     }
     
-    public int getIdEntrenador() {
-		return idEntrenador;
-	}
-
-	private void setIdEntrenador(int idEntrenador) {
-		this.idEntrenador = idEntrenador;
-	}
-
 	public String getEstrategiaFavorita() {
         return estrategiaFavorita;
     }
@@ -26,6 +18,12 @@ public class Entrenador {
     public void setEstrategiaFavorita(String estrategiaFavorita) {
         this.estrategiaFavorita = estrategiaFavorita;
     }
+    
+
+	@Override
+	public String toString() {
+		return "Entrenador [estrategiaFavorita=" + estrategiaFavorita + ", " + super.toString() + "]\n";
+	}
 
 	@Override
 	public boolean equals(Object obj) {
