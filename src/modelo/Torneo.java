@@ -177,7 +177,7 @@ public class Torneo {
     public void setPartidos(List<Partido> partidos) {
         this.partidos = partidos;
     }
-
+  
     @Override
     public String toString() {
         return "Torneo{" +
@@ -191,5 +191,6 @@ public class Torneo {
                 ", partidos=" + partidos +
                 "}/n";
     }
+
 }
 

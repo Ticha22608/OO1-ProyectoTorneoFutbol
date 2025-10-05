@@ -1,29 +1,29 @@
 package modelo;
 
 public class EstadisticaJugador {
-	private int idEstadistica;
+    private int idEstadistica;
     private int goles;
     private int asistencias;
     private int minutosJugados;
     private Jugador jugador;
 
     public EstadisticaJugador(int idEstadistica, int goles, int asistencias, int minutosJugados, Jugador jugador) {
-    	this.idEstadistica = idEstadistica;
+        this.idEstadistica = idEstadistica;
         this.goles = goles;
         this.asistencias = asistencias;
         this.minutosJugados = minutosJugados;
         this.jugador = jugador;
     }
-    
+
     public int getIdEstadistica() {
-		return idEstadistica;
-	}
+        return idEstadistica;
+    }
 
-	private void setIdEstadistica(int idEstadistica) {
-		this.idEstadistica = idEstadistica;
-	}
+    private void setIdEstadistica(int idEstadistica) {
+        this.idEstadistica = idEstadistica;
+    }
 
-	public int getGoles() {
+    public int getGoles() {
         return goles;
     }
 
@@ -53,5 +53,16 @@ public class EstadisticaJugador {
 
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
+    }
+
+    @Override
+    public String toString() {
+        return "EstadisticaJugador{" +
+                "idEstadistica=" + idEstadistica +
+                ", goles=" + goles +
+                ", asistencias=" + asistencias +
+                ", minutosJugados=" + minutosJugados +
+                ", jugador=" + jugador +
+                "}\n";
     }
 }

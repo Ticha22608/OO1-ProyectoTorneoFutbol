@@ -134,7 +134,7 @@ public class SistemaCampeonatos {
     	}
     }
     
-    public boolean agregarJugador(String nombre, String apellido, int dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta) {
+    public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta) {
     	int id = 0;
     	if(jugadores.size() > 0) {
     		int ultimoIndice = jugadores.size() - 1;
@@ -144,13 +144,13 @@ public class SistemaCampeonatos {
     	return jugadores.add(agregar);
     }
     
-    public Jugador traerJugador(int idJugador) {
+    public Jugador traerJugador(int idPersona) {
     	int indice = 0;
     	boolean encontrado = false;
     	Jugador aux = null;
     	
     	while(indice < jugadores.size() && !encontrado) {
-    		if(jugadores.get(indice).getIdPersona() == idJugador) {
+    		if(jugadores.get(indice).getIdPersona() == idPersona) {
     			encontrado = true;
     			aux = jugadores.get(indice);
     		}
@@ -159,8 +159,8 @@ public class SistemaCampeonatos {
     	return aux;
     }
     
-    public boolean eliminarJugador(int idJugador) {
-    	Jugador aEliminar = traerJugador(idJugador);
+    public boolean eliminarJugador(int idPersona) {
+    	Jugador aEliminar = traerJugador(idPersona);
     	if(aEliminar != null) {
     		return jugadores.remove(aEliminar);
     	}else {
@@ -168,7 +168,7 @@ public class SistemaCampeonatos {
     	}
     }
     
-    public boolean agregarEntrenador(String nombre, String apellido, int dni, LocalDate fechaNacimiento,String estrategiaFavorita) {
+    public boolean agregarEntrenador(String nombre, String apellido, long dni, LocalDate fechaNacimiento,String estrategiaFavorita) {
     	int id = 0;
     	if(entrenadores.size() > 0) {
     		int ultimoIndice = entrenadores.size() - 1;
@@ -179,13 +179,13 @@ public class SistemaCampeonatos {
     }
     
     
-    public Entrenador traerEntrenador(int idEntrenador) {
+    public Entrenador traerEntrenador(int idPersona) {
     	int indice = 0;
     	boolean encontrado = false;
     	Entrenador aux = null;
     	
     	while(indice < entrenadores.size() && !encontrado) {
-    		if(entrenadores.get(indice).getIdPersona() == idEntrenador) {
+    		if(entrenadores.get(indice).getIdPersona() == idPersona) {
     			encontrado = true;
     			aux = entrenadores.get(indice);
     		}
