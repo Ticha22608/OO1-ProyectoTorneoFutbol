@@ -121,7 +121,7 @@ public class Equipo {
                 "}\n";
     }
 
-    public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta) {
+    public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta, boolean estado) {
         int id = 0;
         if (jugadores.size() > 0) {
             int indiceJugador = jugadores.size() - 1;

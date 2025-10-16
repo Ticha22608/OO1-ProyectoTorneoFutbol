@@ -3,18 +3,19 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Torneo {
     private int idTorneo;
     private String nombre;
-    private String temporada;
+    private int temporada;
     private List<Equipo> equipos;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private List<EstadisticaJugador> estadisticaTorneo;
     private List<Partido> partidos;
 
-    public Torneo(int idTorneo, String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Torneo(int idTorneo, String nombre, int temporada, LocalDate fechaInicio, LocalDate fechaFin) {
         this.idTorneo=idTorneo;
         this.nombre = nombre;
         this.temporada = temporada;
@@ -43,11 +44,11 @@ public class Torneo {
         this.nombre = nombre;
     }
 
-    public String getTemporada() {
+    public int getTemporada() {
         return temporada;
     }
 
-    public void setTemporada(String temporada) {
+    public void setTemporada(int temporada) {
         this.temporada = temporada;
     }
 
@@ -102,8 +103,16 @@ public class Torneo {
                 ", fechaFin=" + fechaFin +
                 ", estadisticaTorneo=" + estadisticaTorneo +
                 ", partidos=" + partidos +
-                "}/n";
+                "}\n";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Torneo torneo = (Torneo) o;
+        return Objects.equals(nombre, torneo.nombre) && Objects.equals(temporada, torneo.temporada);
+    }
+
 
     public int calcularGolesJugador(Jugador jugador) {
         int totalGoles = 0;
@@ -125,7 +134,6 @@ public class Torneo {
         return totalAsistencias;
     }
 
-}
 
     public boolean agregarEquipo(Equipo equipo) throws Exception {
         if (this.traerEquipoPorId(equipo.getIdEquipo()) != null) {

@@ -1,12 +1,14 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Jugador extends Persona {
     private double estatura;
     private double peso;
     private String posicion;
     private int numCamiseta;
+    private boolean estado;
 
     public Jugador(int idPersona, String nombre, String apellido, long dni, LocalDate fechaNacimiento
     		, double estatura, double peso, String posicion, int numCamiseta) {
@@ -15,15 +17,19 @@ public class Jugador extends Persona {
         this.peso = peso;
         this.posicion = posicion;
         this.numCamiseta = numCamiseta;
+        this.estado=true;
     }
 
     @Override
     public String toString() {
-        return "Jugador{" + super.toString() +
-                ", estatura=" + estatura +
+        String estadoJugador = this.estado ? "Activo" : "Inactivo";
+         return "Jugador{" +
+                "estatura=" + estatura +
                 ", peso=" + peso +
                 ", posicion='" + posicion + '\'' +
                 ", numCamiseta=" + numCamiseta +
+                 ", estado= " + estadoJugador + ", "
+                 + super.toString() +
                 "}\n";
     }
 
@@ -58,6 +64,21 @@ public class Jugador extends Persona {
     public void setNumCamiseta(int numCamiseta) {
         this.numCamiseta = numCamiseta;
     }
-    
-    
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Jugador jugador = (Jugador) o;
+        return Double.compare(estatura, jugador.estatura) == 0 && Double.compare(peso, jugador.peso) == 0 && numCamiseta == jugador.numCamiseta && estado == jugador.estado && Objects.equals(posicion, jugador.posicion);
+    }
+
 }
