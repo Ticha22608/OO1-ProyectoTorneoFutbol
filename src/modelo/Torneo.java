@@ -25,93 +25,6 @@ public class Torneo {
         this.partidos = new ArrayList<Partido>();
     }
 
-    public boolean agregarEquipo(Equipo equipo) {
-        if (this.traerEquipoPorId(equipo.getIdEquipo()) == null) {
-            return this.equipos.add(equipo);
-        }
-        return false;
-    }
-    public boolean agregarEstadistica(EstadisticaJugador estadistica) {
-        return this.estadisticaTorneo.add(estadistica);
-    }
-    public boolean agregarPartido(Partido partido) {
-        if (this.traerPartidoPorId(partido.getIdPartido()) == null) {
-            return this.partidos.add(partido);
-        }
-        return false;
-    }
-    public boolean darBajaJugadorEnEquipo(String idEquipo, int idJugador) {
-        Equipo equipo = this.traerEquipoPorId(idEquipo);
-        if (equipo != null) {
-            System.out.println("Se intenta dar de baja al jugador " + idJugador + " del equipo " + idEquipo);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean eliminarEquipo(String idEquipo) {
-        Equipo equipo = this.traerEquipoPorId(idEquipo);
-        if (equipo != null) {
-            return this.equipos.remove(equipo);
-        }
-        return false;
-    }
-
-
-
-    public Equipo traerEquipoPorId(String idEquipo) {
-        int i = 0;
-        while (i < this.equipos.size()) {
-            Equipo equipo = this.equipos.get(i);
-            if (equipo.getIdEquipo().equals(idEquipo)) {
-                return equipo;
-            }
-            i++;
-        }
-        return null;
-    }
-
-    public EstadisticaJugador traerEstadisticaPorId(int idEstadistica) {
-        int i = 0;
-        while (i < this.estadisticaTorneo.size()) {
-            EstadisticaJugador estadistica = this.estadisticaTorneo.get(i);
-            if (estadistica.getIdEstadistica() == idEstadistica) {
-                return estadistica;
-            }
-            i++;
-        }
-        return null;
-    }
-
-    public Partido traerPartidoPorId(int idPartido) {
-        int i = 0;
-        while (i < this.partidos.size()) {
-            Partido partido = this.partidos.get(i);
-            if (partido.getIdPartido() == idPartido) {
-                return partido;
-            }
-            i++;
-        }
-        return null;
-    }
-    public Equipo equipoMayorAlturaPromedio() {
-        if (equipos.isEmpty()) {
-            return null;
-        }
-
-        Equipo mejorEquipo = equipos.getFirst();
-        double mayorPromedio = mejorEquipo.calcularAlturaPromedio();
-
-        for (Equipo equipo : equipos) {
-            double promedio = equipo.calcularAlturaPromedio();
-            if (promedio > mayorPromedio) {
-                mayorPromedio = promedio;
-                mejorEquipo = equipo;
-            }
-        }
-        return mejorEquipo;
-    }
-
     // --- Getters y Setters ---
 
     public int getIdTorneo() {
@@ -214,3 +127,104 @@ public class Torneo {
 
 }
 
+    public boolean agregarEquipo(Equipo equipo) throws Exception {
+        if (this.traerEquipoPorId(equipo.getIdEquipo()) != null) {
+
+            throw new Exception("ERROR: Ya existe un Equipo con ID: " + equipo.getIdEquipo());
+        }
+        return this.equipos.add(equipo);
+    }
+
+    public boolean eliminarEquipo(String idEquipo) throws Exception {
+        Equipo equipo = this.traerEquipoPorId(idEquipo);
+        if (equipo == null) {
+
+            throw new Exception("ERROR: El Equipo con ID: " + idEquipo + " no existe.");
+        }
+        return this.equipos.remove(equipo);
+    }
+
+
+    public boolean agregarEstadistica(EstadisticaJugador estadistica) {
+        return this.estadisticaTorneo.add(estadistica);
+    }
+
+    public boolean agregarPartido(Partido partido) {
+        if (this.traerPartidoPorId(partido.getIdPartido()) == null) {
+            return this.partidos.add(partido);
+        }
+        return false;
+    }
+
+    public boolean darBajaJugadorEnEquipo(String idEquipo, int idJugador) {
+        Equipo equipo = this.traerEquipoPorId(idEquipo);
+        if (equipo != null) {
+            System.out.println("Se intenta dar de baja al jugador " + idJugador + " del equipo " + idEquipo);
+            return true;
+        }
+        return false;
+    }
+
+    public Equipo traerEquipoPorId(String idEquipo) {
+        int indice = 0;
+        boolean encontrado = false;
+        Equipo aux= null;
+
+        while (indice < equipos.size() && !encontrado) {
+            if (equipos.get(indice).getIdEquipo() == idEquipo) {
+                encontrado = true;
+                aux= equipos.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+
+    public EstadisticaJugador traerEstadisticaPorId(int idEstadistica) {
+        int indice = 0;
+        boolean encontrado = false;
+        EstadisticaJugador aux=null;
+
+        while (indice < estadisticaTorneo.size() && !encontrado) {
+            if (estadisticaTorneo.get(indice).getIdEstadistica() == idEstadistica) {
+                encontrado = true;
+                aux =  estadisticaTorneo.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+
+    public Partido traerPartidoPorId(int idPartido) {
+        int indice = 0;
+        boolean encontrado = false;
+        Partido aux = null;
+
+        while (indice < this.partidos.size() && !encontrado) {
+            if (partidos.get(indice).getIdPartido() == idPartido) {
+                encontrado=true;
+                aux=partidos.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+    public Equipo equipoMayorAlturaPromedio() {
+        if (equipos.isEmpty()) {
+            return null;
+        }
+
+        Equipo mejorEquipo = equipos.getFirst();
+        double mayorPromedio = mejorEquipo.calcularAlturaPromedio();
+
+        for (Equipo equipo : equipos) {
+            double promedio = equipo.calcularAlturaPromedio();
+            if (promedio > mayorPromedio) {
+                mayorPromedio = promedio;
+                mejorEquipo = equipo;
+            }
+        }
+        return mejorEquipo;
+    }
+
+}
