@@ -8,7 +8,7 @@ public class Jugador extends Persona {
     private String posicion;
     private int numCamiseta;
 
-    public Jugador(int idPersona, String nombre, String apellido, int dni, LocalDate fechaNacimiento
+    public Jugador(int idPersona, String nombre, String apellido, long dni, LocalDate fechaNacimiento
     		, double estatura, double peso, String posicion, int numCamiseta) {
     	super(idPersona, nombre, apellido, dni, fechaNacimiento);
     	this.estatura = estatura;
@@ -16,8 +16,18 @@ public class Jugador extends Persona {
         this.posicion = posicion;
         this.numCamiseta = numCamiseta;
     }
-   
-	public double getEstatura() {
+
+    @Override
+    public String toString() {
+        return "Jugador{" + super.toString() +
+                ", estatura=" + estatura +
+                ", peso=" + peso +
+                ", posicion='" + posicion + '\'' +
+                ", numCamiseta=" + numCamiseta +
+                "}\n";
+    }
+
+    public double getEstatura() {
         return estatura;
     }
 

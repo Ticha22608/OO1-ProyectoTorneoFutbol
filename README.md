@@ -5,6 +5,7 @@
 - [@Ticha22608](https://github.com/Ticha22608)
 - [@palladinowanda](https://github.com/palladinowanda)
 - [@lolatorresr](https://github.com/lolatorresr)
+- [@Thomy98](https://github.com/Thomy98)
 
 ## Información
 [de qué se trata el proyecto]
