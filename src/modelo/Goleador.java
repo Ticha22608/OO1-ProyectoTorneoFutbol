@@ -30,9 +30,9 @@ public class Goleador {
     @Override
     public String toString() {
         return "Goleador{" +
-                "jugador=" + jugador.getNombre() +
+                "jugador=" + jugador.getNombre() + " " + jugador.getApellido() +
                 ", goles=" + goles +
-                '}';
+                "}\n";
     }
 
     @Override

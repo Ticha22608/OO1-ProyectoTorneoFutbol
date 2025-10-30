@@ -32,7 +32,7 @@ public class Asistencia {
         return "Asistencia{" +
                 "jugador=" + jugador.getNombre() + " " + jugador.getApellido() +
                 ", asistencias=" + asistencias +
-                '}';
+                "}\n";
     }
 
     @Override
