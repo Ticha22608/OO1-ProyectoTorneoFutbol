@@ -147,6 +147,31 @@ public class Torneo {
         return this.equipos.add(equipo);
     }
 
+    public int calcularGolesJugador(Jugador jugador) {
+        int totalGoles = 0;
+
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalGoles += estadistica.getGoles();
+            }
+        }
+
+        return totalGoles;
+    }
+
+    public int calcularAsistenciasJugador(Jugador jugador) {
+        int totalAsistencias = 0;
+
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalAsistencias += estadistica.getAsistencias();
+            }
+        }
+
+        return totalAsistencias;
+    }
+
+}
     public boolean eliminarEquipo(String idEquipo) throws Exception {
         Equipo equipo = this.traerEquipoPorId(idEquipo);
         if (equipo == null) {
