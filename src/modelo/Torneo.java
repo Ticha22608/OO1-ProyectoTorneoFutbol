@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Torneo {
     private int idTorneo;
@@ -91,7 +95,7 @@ public class Torneo {
     public void setPartidos(List<Partido> partidos) {
         this.partidos = partidos;
     }
-  
+
     @Override
     public String toString() {
         return "Torneo{" +
@@ -222,7 +226,7 @@ public class Torneo {
             return null;
         }
 
-        Equipo mejorEquipo = equipos.getFirst();
+        Equipo mejorEquipo = equipos.get(0);
         double mayorPromedio = mejorEquipo.calcularAlturaPromedio();
 
         for (Equipo equipo : equipos) {
@@ -233,6 +237,72 @@ public class Torneo {
             }
         }
         return mejorEquipo;
+    }
+
+    /*
+     Genera la tabla de posiciones del torneo.
+     Para cada partido suma los goles por equipo (sumando las estadisticas de jugadores)
+     y asigna 3 puntos por victoria, 1 por empate.
+     Retorna una lista de Posicion ordenada de mayor a menor puntaje.
+     */
+    public List<Posicion> generarTablaPosiciones() {
+        Map<Equipo, Integer> puntosPorEquipo = new HashMap<>();
+
+
+        for (Equipo equipo : this.equipos) {
+            puntosPorEquipo.put(equipo, 0);
+        }
+
+
+        for (Partido partido : this.partidos) {
+            int golesLocal = 0;
+            int golesVisitante = 0;
+
+            if (partido.getEstadistica() != null) {
+                for (EstadisticaJugador est : partido.getEstadistica()) {
+                    Jugador jugador = est.getJugador();
+                    if (jugador == null) continue;
+
+                    if (partido.getEquipoLocal() != null && partido.getEquipoLocal().getJugadores().contains(jugador)) {
+                        golesLocal += est.getGoles();
+                    } else if (partido.getEquipoVisitante() != null && partido.getEquipoVisitante().getJugadores().contains(jugador)) {
+                        golesVisitante += est.getGoles();
+                    }
+                }
+            }
+
+            Equipo local = partido.getEquipoLocal();
+            Equipo visitante = partido.getEquipoVisitante();
+
+            if (local == null || visitante == null) continue; // ignorar partidos mal formados
+
+            if (golesLocal > golesVisitante) {
+                puntosPorEquipo.put(local, puntosPorEquipo.getOrDefault(local, 0) + 3);
+            } else if (golesLocal < golesVisitante) {
+                puntosPorEquipo.put(visitante, puntosPorEquipo.getOrDefault(visitante, 0) + 3);
+            } else {
+                puntosPorEquipo.put(local, puntosPorEquipo.getOrDefault(local, 0) + 1);
+                puntosPorEquipo.put(visitante, puntosPorEquipo.getOrDefault(visitante, 0) + 1);
+            }
+        }
+
+        List<Posicion> tabla = new ArrayList<>();
+        for (Map.Entry<Equipo, Integer> entry : puntosPorEquipo.entrySet()) {
+            tabla.add(new Posicion(entry.getKey(), entry.getValue()));
+        }
+
+        Collections.sort(tabla, new Comparator<Posicion>() {
+            @Override
+            public int compare(Posicion p1, Posicion p2) {
+                return Integer.compare(p2.getPuntos(), p1.getPuntos());
+            }
+        });
+
+        for (int i = 0; i < tabla.size(); i++) {
+            tabla.get(i).setPuesto(i + 1);
+        }
+
+        return tabla;
     }
 
 }
