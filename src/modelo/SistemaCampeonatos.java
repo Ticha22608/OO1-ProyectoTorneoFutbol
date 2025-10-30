@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Comparator;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -288,6 +289,11 @@ public class SistemaCampeonatos {
             }
             aux.add(new Goleador(j, goles));
         }
+        aux.sort(
+            Comparator.comparingInt(Goleador::getGoles).reversed()
+                      .thenComparing(g->g.getJugador().getNombre(),String.CASE_INSENSITIVE_ORDER)
+                      .thenComparing(g->g.getJugador().getApellido(),String.CASE_INSENSITIVE_ORDER)
+        );
         return aux;
     }
 
@@ -300,6 +306,11 @@ public class SistemaCampeonatos {
             }
             aux.add(new Asistencia(j, asistencias));
         }
+        aux.sort(
+           Comparator.comparingInt(Asistencia::getAsistencias).reversed()
+                     .thenComparing(a->a.getJugador().getNombre(),String.CASE_INSENSITIVE_ORDER)
+                     .thenComparing(a->a.getJugador().getApellido(),String.CASE_INSENSITIVE_ORDER)
+        );
         return aux;
     }
 
