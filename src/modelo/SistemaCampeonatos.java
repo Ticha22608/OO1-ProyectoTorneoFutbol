@@ -287,7 +287,7 @@ public class SistemaCampeonatos {
             for (Torneo t : torneos) {
                 goles += t.calcularGolesJugador(j);
             }
-            aux.add(new Goleador(j, goles));
+            if (goles > 0) aux.add(new Goleador(j, goles));
         }
         aux.sort(
             Comparator.comparingInt(Goleador::getGoles).reversed()
@@ -304,7 +304,7 @@ public class SistemaCampeonatos {
             for (Torneo t : torneos) {
                 asistencias += t.calcularAsistenciasJugador(j);
             }
-            aux.add(new Asistencia(j, asistencias));
+            if (asistencias > 0) aux.add(new Asistencia(j, asistencias));
         }
         aux.sort(
            Comparator.comparingInt(Asistencia::getAsistencias).reversed()
