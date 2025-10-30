@@ -161,6 +161,16 @@ public class Torneo {
         return this.estadisticaTorneo.add(estadistica);
     }
 
+    public boolean agregarEstadistica(int goles, int asistencias, int minutosJugados, Jugador jugador) {
+        int id = 0;
+        if (estadisticaTorneo.size() > 0){
+            int indiceEstadistica = estadisticaTorneo.size() - 1;
+            id = estadisticaTorneo.get(indiceEstadistica).getIdEstadistica();
+        }
+        EstadisticaJugador nuevaEstadisticaJugador = new EstadisticaJugador(id+1, goles, asistencias, minutosJugados, jugador);
+        return estadisticaTorneo.add(nuevaEstadisticaJugador);
+    }
+
     public boolean agregarPartido(Partido partido) {
         if (this.traerPartidoPorId(partido.getIdPartido()) == null) {
             return this.partidos.add(partido);

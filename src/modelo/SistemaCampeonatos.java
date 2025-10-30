@@ -9,12 +9,14 @@ public class SistemaCampeonatos {
     private List<Equipo> equipos;
     private List<Jugador> jugadores;
     private List<Entrenador> entrenadores;
+    private List<EstadisticaJugador> estadisticas;
 
     public SistemaCampeonatos() {
         this.torneos = new ArrayList<Torneo>();
         this.equipos = new ArrayList<Equipo>();
         this.jugadores = new ArrayList<Jugador>();
         this.entrenadores = new ArrayList<Entrenador>();
+        this.estadisticas = new ArrayList<EstadisticaJugador>();
     }
 
     public List<Torneo> getTorneos() {
@@ -275,5 +277,30 @@ public class SistemaCampeonatos {
     	return equiposFecha;
     }
 
+
+
+    public List<Goleador> listaGoleadores() {
+        List<Goleador> aux = new ArrayList<Goleador>();
+        for (Jugador j : jugadores) {
+            int goles = 0;
+            for (Torneo t : torneos) {
+                goles += t.calcularGolesJugador(j);
+            }
+            aux.add(new Goleador(j, goles));
+        }
+        return aux;
+    }
+
+    public List<Asistencia> listaAsistidores() {
+        List<Asistencia> aux = new ArrayList<Asistencia>();
+        for (Jugador j : jugadores) {
+            int asistencias = 0;
+            for (Torneo t : torneos) {
+                asistencias += t.calcularAsistenciasJugador(j);
+            }
+            aux.add(new Asistencia(j, asistencias));
+        }
+        return aux;
+    }
 
 }

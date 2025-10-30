@@ -93,6 +93,16 @@ public class TestSistemaCampeonato {
         System.out.println(sistema.traerEquipo("TAL").traerEstadisticaEquipo(1).toString());
         System.out.println(sistema.traerEquipo("TAL").traerEstadisticaEquipo(2).toString());
 
+
+        sistema.traerTorneo(1).agregarEstadistica(5, 2, 655, sistema.traerJugador(1));
+        sistema.traerTorneo(1).agregarEstadistica(4, 3, 654, sistema.traerJugador(1));
+        sistema.traerTorneo(1).agregarEstadistica(1, 1, 1582, sistema.traerJugador(2));
+        sistema.traerTorneo(1).agregarEstadistica(1, 0, 1582, sistema.traerJugador(2));
+        sistema.traerTorneo(1).agregarEstadistica(1, 1, 1582, sistema.traerJugador(3));
+
+
+        System.out.println("-------------------------\n");
+        System.out.println(sistema.listaGoleadores());
     }
 
 }
