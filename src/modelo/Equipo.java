@@ -137,7 +137,6 @@ public class Equipo {
 
     public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta) throws Exception {
         if(traerJugador(dni) != null) throw new Exception("El jugador que quiere agregar por DNI ya existe.");
-
         int id = 0;
 
         if(!jugadores.isEmpty()){

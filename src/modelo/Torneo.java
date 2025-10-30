@@ -3,18 +3,23 @@ package modelo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Torneo {
     private int idTorneo;
     private String nombre;
-    private String temporada;
+    private int temporada;
     private List<Equipo> equipos;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private List<EstadisticaJugador> estadisticaTorneo;
     private List<Partido> partidos;
 
-    public Torneo(int idTorneo, String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Torneo(int idTorneo, String nombre, int temporada, LocalDate fechaInicio, LocalDate fechaFin) {
         this.idTorneo=idTorneo;
         this.nombre = nombre;
         this.temporada = temporada;
@@ -23,93 +28,6 @@ public class Torneo {
         this.fechaFin = fechaFin;
         this.estadisticaTorneo = new ArrayList<EstadisticaJugador>();
         this.partidos = new ArrayList<Partido>();
-    }
-
-    public boolean agregarEquipo(Equipo equipo) {
-        if (this.traerEquipoPorId(equipo.getIdEquipo()) == null) {
-            return this.equipos.add(equipo);
-        }
-        return false;
-    }
-    public boolean agregarEstadistica(EstadisticaJugador estadistica) {
-        return this.estadisticaTorneo.add(estadistica);
-    }
-    public boolean agregarPartido(Partido partido) {
-        if (this.traerPartidoPorId(partido.getIdPartido()) == null) {
-            return this.partidos.add(partido);
-        }
-        return false;
-    }
-    public boolean darBajaJugadorEnEquipo(String idEquipo, int idJugador) {
-        Equipo equipo = this.traerEquipoPorId(idEquipo);
-        if (equipo != null) {
-            System.out.println("Se intenta dar de baja al jugador " + idJugador + " del equipo " + idEquipo);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean eliminarEquipo(String idEquipo) {
-        Equipo equipo = this.traerEquipoPorId(idEquipo);
-        if (equipo != null) {
-            return this.equipos.remove(equipo);
-        }
-        return false;
-    }
-
-
-
-    public Equipo traerEquipoPorId(String idEquipo) {
-        int i = 0;
-        while (i < this.equipos.size()) {
-            Equipo equipo = this.equipos.get(i);
-            if (equipo.getIdEquipo().equals(idEquipo)) {
-                return equipo;
-            }
-            i++;
-        }
-        return null;
-    }
-
-    public EstadisticaJugador traerEstadisticaPorId(int idEstadistica) {
-        int i = 0;
-        while (i < this.estadisticaTorneo.size()) {
-            EstadisticaJugador estadistica = this.estadisticaTorneo.get(i);
-            if (estadistica.getIdEstadistica() == idEstadistica) {
-                return estadistica;
-            }
-            i++;
-        }
-        return null;
-    }
-
-    public Partido traerPartidoPorId(int idPartido) {
-        int i = 0;
-        while (i < this.partidos.size()) {
-            Partido partido = this.partidos.get(i);
-            if (partido.getIdPartido() == idPartido) {
-                return partido;
-            }
-            i++;
-        }
-        return null;
-    }
-    public Equipo equipoMayorAlturaPromedio() {
-        if (equipos.isEmpty()) {
-            return null;
-        }
-
-        Equipo mejorEquipo = equipos.getFirst();
-        double mayorPromedio = mejorEquipo.calcularAlturaPromedio();
-
-        for (Equipo equipo : equipos) {
-            double promedio = equipo.calcularAlturaPromedio();
-            if (promedio > mayorPromedio) {
-                mayorPromedio = promedio;
-                mejorEquipo = equipo;
-            }
-        }
-        return mejorEquipo;
     }
 
     // --- Getters y Setters ---
@@ -130,11 +48,11 @@ public class Torneo {
         this.nombre = nombre;
     }
 
-    public String getTemporada() {
+    public int getTemporada() {
         return temporada;
     }
 
-    public void setTemporada(String temporada) {
+    public void setTemporada(int temporada) {
         this.temporada = temporada;
     }
 
@@ -177,7 +95,7 @@ public class Torneo {
     public void setPartidos(List<Partido> partidos) {
         this.partidos = partidos;
     }
-  
+
     @Override
     public String toString() {
         return "Torneo{" +
@@ -189,7 +107,44 @@ public class Torneo {
                 ", fechaFin=" + fechaFin +
                 ", estadisticaTorneo=" + estadisticaTorneo +
                 ", partidos=" + partidos +
-                "}/n";
+                "}\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Torneo torneo = (Torneo) o;
+        return Objects.equals(nombre, torneo.nombre) && Objects.equals(temporada, torneo.temporada);
+    }
+
+
+    public int calcularGolesJugador(Jugador jugador) {
+        int totalGoles = 0;
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalGoles += estadistica.getGoles();
+            }
+        }
+        return totalGoles;
+    }
+
+    public int calcularAsistenciasJugador(Jugador jugador) {
+        int totalAsistencias = 0;
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalAsistencias += estadistica.getAsistencias();
+            }
+        }
+        return totalAsistencias;
+    }
+
+
+    public boolean agregarEquipo(Equipo equipo) throws Exception {
+        if (this.traerEquipoPorId(equipo.getIdEquipo()) != null) {
+
+            throw new Exception("ERROR: Ya existe un Equipo con ID: " + equipo.getIdEquipo());
+        }
+        return this.equipos.add(equipo);
     }
 
     public int calcularGolesJugador(Jugador jugador) {
@@ -217,4 +172,162 @@ public class Torneo {
     }
 
 }
+    public boolean eliminarEquipo(String idEquipo) throws Exception {
+        Equipo equipo = this.traerEquipoPorId(idEquipo);
+        if (equipo == null) {
 
+            throw new Exception("ERROR: El Equipo con ID: " + idEquipo + " no existe.");
+        }
+        return this.equipos.remove(equipo);
+    }
+
+
+    public boolean agregarEstadistica(EstadisticaJugador estadistica) {
+        return this.estadisticaTorneo.add(estadistica);
+    }
+
+    public boolean agregarPartido(Partido partido) {
+        if (this.traerPartidoPorId(partido.getIdPartido()) == null) {
+            return this.partidos.add(partido);
+        }
+        return false;
+    }
+
+    public boolean darBajaJugadorEnEquipo(String idEquipo, int idJugador) {
+        Equipo equipo = this.traerEquipoPorId(idEquipo);
+        if (equipo != null) {
+            System.out.println("Se intenta dar de baja al jugador " + idJugador + " del equipo " + idEquipo);
+            return true;
+        }
+        return false;
+    }
+
+    public Equipo traerEquipoPorId(String idEquipo) {
+        int indice = 0;
+        boolean encontrado = false;
+        Equipo aux= null;
+
+        while (indice < equipos.size() && !encontrado) {
+            if (equipos.get(indice).getIdEquipo() == idEquipo) {
+                encontrado = true;
+                aux= equipos.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+
+    public EstadisticaJugador traerEstadisticaPorId(int idEstadistica) {
+        int indice = 0;
+        boolean encontrado = false;
+        EstadisticaJugador aux=null;
+
+        while (indice < estadisticaTorneo.size() && !encontrado) {
+            if (estadisticaTorneo.get(indice).getIdEstadistica() == idEstadistica) {
+                encontrado = true;
+                aux =  estadisticaTorneo.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+
+    public Partido traerPartidoPorId(int idPartido) {
+        int indice = 0;
+        boolean encontrado = false;
+        Partido aux = null;
+
+        while (indice < this.partidos.size() && !encontrado) {
+            if (partidos.get(indice).getIdPartido() == idPartido) {
+                encontrado=true;
+                aux=partidos.get(indice);
+            }
+            indice++;
+        }
+        return aux;
+    }
+    public Equipo equipoMayorAlturaPromedio() {
+        if (equipos.isEmpty()) {
+            return null;
+        }
+
+        Equipo mejorEquipo = equipos.get(0);
+        double mayorPromedio = mejorEquipo.calcularAlturaPromedio();
+
+        for (Equipo equipo : equipos) {
+            double promedio = equipo.calcularAlturaPromedio();
+            if (promedio > mayorPromedio) {
+                mayorPromedio = promedio;
+                mejorEquipo = equipo;
+            }
+        }
+        return mejorEquipo;
+    }
+
+    /*
+     Genera la tabla de posiciones del torneo.
+     Para cada partido suma los goles por equipo (sumando las estadisticas de jugadores)
+     y asigna 3 puntos por victoria, 1 por empate.
+     Retorna una lista de Posicion ordenada de mayor a menor puntaje.
+     */
+    public List<Posicion> generarTablaPosiciones() {
+        Map<Equipo, Integer> puntosPorEquipo = new HashMap<>();
+
+
+        for (Equipo equipo : this.equipos) {
+            puntosPorEquipo.put(equipo, 0);
+        }
+
+
+        for (Partido partido : this.partidos) {
+            int golesLocal = 0;
+            int golesVisitante = 0;
+
+            if (partido.getEstadistica() != null) {
+                for (EstadisticaJugador est : partido.getEstadistica()) {
+                    Jugador jugador = est.getJugador();
+                    if (jugador == null) continue;
+
+                    if (partido.getEquipoLocal() != null && partido.getEquipoLocal().getJugadores().contains(jugador)) {
+                        golesLocal += est.getGoles();
+                    } else if (partido.getEquipoVisitante() != null && partido.getEquipoVisitante().getJugadores().contains(jugador)) {
+                        golesVisitante += est.getGoles();
+                    }
+                }
+            }
+
+            Equipo local = partido.getEquipoLocal();
+            Equipo visitante = partido.getEquipoVisitante();
+
+            if (local == null || visitante == null) continue; // ignorar partidos mal formados
+
+            if (golesLocal > golesVisitante) {
+                puntosPorEquipo.put(local, puntosPorEquipo.getOrDefault(local, 0) + 3);
+            } else if (golesLocal < golesVisitante) {
+                puntosPorEquipo.put(visitante, puntosPorEquipo.getOrDefault(visitante, 0) + 3);
+            } else {
+                puntosPorEquipo.put(local, puntosPorEquipo.getOrDefault(local, 0) + 1);
+                puntosPorEquipo.put(visitante, puntosPorEquipo.getOrDefault(visitante, 0) + 1);
+            }
+        }
+
+        List<Posicion> tabla = new ArrayList<>();
+        for (Map.Entry<Equipo, Integer> entry : puntosPorEquipo.entrySet()) {
+            tabla.add(new Posicion(entry.getKey(), entry.getValue()));
+        }
+
+        Collections.sort(tabla, new Comparator<Posicion>() {
+            @Override
+            public int compare(Posicion p1, Posicion p2) {
+                return Integer.compare(p2.getPuntos(), p1.getPuntos());
+            }
+        });
+
+        for (int i = 0; i < tabla.size(); i++) {
+            tabla.get(i).setPuesto(i + 1);
+        }
+
+        return tabla;
+    }
+
+}
