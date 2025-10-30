@@ -110,8 +110,7 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" +
-                "numEquipo=" + numEquipo +
+        return "Equipo{" + "numEquipo=" + numEquipo +
                 ", nombre='" + nombre + '\'' +
                 ", idEquipo='" + idEquipo + '\'' +
                 ", fechaFundacion=" + fechaFundacion +
@@ -121,12 +120,33 @@ public class Equipo {
                 "}\n";
     }
 
-    public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta, boolean estado) {
-        int id = 0;
-        if (jugadores.size() > 0) {
-            int indiceJugador = jugadores.size() - 1;
-            id = jugadores.get(indiceJugador).getIdPersona();
+    public Jugador traerJugador(long dniPersona){
+        int indice = 0;
+        boolean encontrado = false;
+        Jugador aux = null;
+
+        while(indice < jugadores.size() && !encontrado){
+            if(jugadores.get(indice).getDni() == dniPersona) {
+                encontrado = true;
+                aux = jugadores.get(indice);
+            }
+            indice++;
         }
+        return aux;
+    }
+
+    public boolean agregarJugador(String nombre, String apellido, long dni, LocalDate fechaNacimiento, double estatura, double peso, String posicion, int numCamiseta) throws Exception {
+        if(traerJugador(dni) != null) throw new Exception("El jugador que quiere agregar por DNI ya existe.");
+        int id = 0;
+
+        if(!jugadores.isEmpty()){
+            for(Jugador j : jugadores){
+                if(j.getIdPersona() > id) {
+                    id = j.getIdPersona();
+                }
+            }
+        }
+
         Jugador nuevoJugador = new Jugador(id + 1, nombre, apellido, dni, fechaNacimiento, estatura, peso, posicion, numCamiseta);
         return jugadores.add(nuevoJugador);
     }
@@ -153,7 +173,8 @@ public class Equipo {
         return jugadores.add(j);
     }
 
-    public boolean eliminarJugador(int idPersona){
+    public boolean eliminarJugador(int idPersona) throws Exception{
+        if(traerJugador(idPersona) != null) throw new Exception ("El jugador que quiere eliminar por DNI no existe");
         Jugador aEliminar = traerJugador(idPersona);
         return jugadores.remove(aEliminar);
     }

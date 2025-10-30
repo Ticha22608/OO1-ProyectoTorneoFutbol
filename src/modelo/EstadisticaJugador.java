@@ -59,10 +59,10 @@ public class EstadisticaJugador {
     public String toString() {
         return "EstadisticaJugador{" +
                 "idEstadistica=" + idEstadistica +
+                ", jugador=" + jugador +
                 ", goles=" + goles +
                 ", asistencias=" + asistencias +
                 ", minutosJugados=" + minutosJugados +
-                ", jugador=" + jugador +
                 "}\n";
     }
 }
