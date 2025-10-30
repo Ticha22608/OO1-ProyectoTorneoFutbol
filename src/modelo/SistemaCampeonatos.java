@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Comparator;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,12 +10,14 @@ public class SistemaCampeonatos {
     private List<Equipo> equipos;
     private List<Jugador> jugadores;
     private List<Entrenador> entrenadores;
+    private List<EstadisticaJugador> estadisticas;
 
     public SistemaCampeonatos() {
         this.torneos = new ArrayList<Torneo>();
         this.equipos = new ArrayList<Equipo>();
         this.jugadores = new ArrayList<Jugador>();
         this.entrenadores = new ArrayList<Entrenador>();
+        this.estadisticas = new ArrayList<EstadisticaJugador>();
     }
 
     public List<Torneo> getTorneos() {
@@ -275,5 +278,40 @@ public class SistemaCampeonatos {
     	return equiposFecha;
     }
 
+
+
+    public List<Goleador> listaGoleadores() {
+        List<Goleador> aux = new ArrayList<Goleador>();
+        for (Jugador j : jugadores) {
+            int goles = 0;
+            for (Torneo t : torneos) {
+                goles += t.calcularGolesJugador(j);
+            }
+            if (goles > 0) aux.add(new Goleador(j, goles));
+        }
+        aux.sort(
+            Comparator.comparingInt(Goleador::getGoles).reversed()
+                      .thenComparing(g->g.getJugador().getNombre(),String.CASE_INSENSITIVE_ORDER)
+                      .thenComparing(g->g.getJugador().getApellido(),String.CASE_INSENSITIVE_ORDER)
+        );
+        return aux;
+    }
+
+    public List<Asistencia> listaAsistidores() {
+        List<Asistencia> aux = new ArrayList<Asistencia>();
+        for (Jugador j : jugadores) {
+            int asistencias = 0;
+            for (Torneo t : torneos) {
+                asistencias += t.calcularAsistenciasJugador(j);
+            }
+            if (asistencias > 0) aux.add(new Asistencia(j, asistencias));
+        }
+        aux.sort(
+           Comparator.comparingInt(Asistencia::getAsistencias).reversed()
+                     .thenComparing(a->a.getJugador().getNombre(),String.CASE_INSENSITIVE_ORDER)
+                     .thenComparing(a->a.getJugador().getApellido(),String.CASE_INSENSITIVE_ORDER)
+        );
+        return aux;
+    }
 
 }

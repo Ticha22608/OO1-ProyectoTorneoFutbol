@@ -143,31 +143,6 @@ public class Torneo {
         return this.equipos.add(equipo);
     }
 
-    public int calcularGolesJugador(Jugador jugador) {
-        int totalGoles = 0;
-
-        for (EstadisticaJugador estadistica : estadisticaTorneo) {
-            if (estadistica.getJugador().equals(jugador)) {
-                totalGoles += estadistica.getGoles();
-            }
-        }
-
-        return totalGoles;
-    }
-
-    public int calcularAsistenciasJugador(Jugador jugador) {
-        int totalAsistencias = 0;
-
-        for (EstadisticaJugador estadistica : estadisticaTorneo) {
-            if (estadistica.getJugador().equals(jugador)) {
-                totalAsistencias += estadistica.getAsistencias();
-            }
-        }
-
-        return totalAsistencias;
-    }
-
-}
     public boolean eliminarEquipo(String idEquipo) throws Exception {
         Equipo equipo = this.traerEquipoPorId(idEquipo);
         if (equipo == null) {
@@ -180,6 +155,16 @@ public class Torneo {
 
     public boolean agregarEstadistica(EstadisticaJugador estadistica) {
         return this.estadisticaTorneo.add(estadistica);
+    }
+
+    public boolean agregarEstadistica(int goles, int asistencias, int minutosJugados, Jugador jugador) {
+        int id = 0;
+        if (estadisticaTorneo.size() > 0){
+            int indiceEstadistica = estadisticaTorneo.size() - 1;
+            id = estadisticaTorneo.get(indiceEstadistica).getIdEstadistica();
+        }
+        EstadisticaJugador nuevaEstadisticaJugador = new EstadisticaJugador(id+1, goles, asistencias, minutosJugados, jugador);
+        return estadisticaTorneo.add(nuevaEstadisticaJugador);
     }
 
     public boolean agregarPartido(Partido partido) {

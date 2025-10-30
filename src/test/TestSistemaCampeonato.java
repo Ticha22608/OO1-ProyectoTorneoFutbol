@@ -180,6 +180,23 @@ public class TestSistemaCampeonato {
         System.out.println("\nASISTENCIAS POR JUGADOR:\n");
         System.out.println("Asistencias Montiel: " + torneoApertura.calcularAsistenciasJugador(sistema.traerJugador(1)));
         System.out.println("Asistencias Lomonaco: " + torneoApertura.calcularAsistenciasJugador(sistema.traerJugador(2)));
+
+        System.out.println("\n---Métodos 14 y 15---\n");
+        sistema.traerTorneo(1).agregarEstadistica(5, 2, 655, sistema.traerJugador(1));
+        sistema.traerTorneo(2).agregarEstadistica(4, 3, 654, sistema.traerJugador(1));
+        sistema.traerTorneo(1).agregarEstadistica(1, 1, 1582, sistema.traerJugador(2));
+        sistema.traerTorneo(2).agregarEstadistica(1, 0, 1582, sistema.traerJugador(2));
+        sistema.traerTorneo(1).agregarEstadistica(1, 0, 1024, sistema.traerJugador(3));
+        sistema.traerTorneo(2).agregarEstadistica(0, 0, 1026, sistema.traerJugador(3));
+        sistema.traerTorneo(1).agregarEstadistica(1, 0, 455, sistema.traerJugador(4));
+        sistema.traerTorneo(2).agregarEstadistica(1, 0, 455, sistema.traerJugador(4));
+        sistema.traerTorneo(1).agregarEstadistica(0, 0, 1395, sistema.traerJugador(5));
+        sistema.traerTorneo(2).agregarEstadistica(0, 0, 1395, sistema.traerJugador(5));
+        sistema.traerTorneo(1).agregarEstadistica(2, 1, 676, sistema.traerJugador(6));
+        sistema.traerTorneo(2).agregarEstadistica(2, 0, 676, sistema.traerJugador(6));
+        System.out.println(sistema.listaGoleadores());
+        System.out.println(sistema.listaAsistidores());
+
     }
 
 }
