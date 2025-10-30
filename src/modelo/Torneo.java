@@ -192,5 +192,29 @@ public class Torneo {
                 "}/n";
     }
 
+    public int calcularGolesJugador(Jugador jugador) {
+        int totalGoles = 0;
+
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalGoles += estadistica.getGoles();
+            }
+        }
+
+        return totalGoles;
+    }
+
+    public int calcularAsistenciasJugador(Jugador jugador) {
+        int totalAsistencias = 0;
+
+        for (EstadisticaJugador estadistica : estadisticaTorneo) {
+            if (estadistica.getJugador().equals(jugador)) {
+                totalAsistencias += estadistica.getAsistencias();
+            }
+        }
+
+        return totalAsistencias;
+    }
+
 }
 
